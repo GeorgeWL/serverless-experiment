@@ -4,8 +4,8 @@
   "description": "using serverless technologies alongside react",
   "main": "index.js",
   "scripts": {
-    "start": "npx ts-node index.ts",
-    "dev": "npx nodemon",
+    "start": "npx ts-node ./index.ts",
+    "dev": "npx nodemon ./index.ts",
     "test": "npx jest",
     "test:watch": "npx jest --watch",
     "test:ui": "npx cypress open",

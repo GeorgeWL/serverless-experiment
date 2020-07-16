@@ -12,8 +12,8 @@ Inide of a .env file at the root of the folder the following variables are requi
 
 **the following are required for the database to run**
 
-[Guide](https://support.google.com/firebase/answer/7015592) -
-<small>found under the heading **"Get config object for your web app"** at time of writing</small>
+[Here](https://support.google.com/firebase/answer/7015592) -
+<small>found under the heading **"Get config object for your web app"**</small>
 
 * `FIREBASE_DATABASE_URL`
 * `FIREBASE_API_KEY`
