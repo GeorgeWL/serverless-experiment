@@ -1,0 +1,21 @@
+{
+  "name": "serverless-experiment",
+  "version": "1.0.0",
+  "description": "using serverless technologies alongside react",
+  "main": "index.js",
+  "scripts": {
+    "test": "npx jest",
+    "test:watch": "npx jest --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GeorgeWL/serverless-experiment.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/GeorgeWL/serverless-experiment/issues"
+  },
+  "homepage": "https://github.com/GeorgeWL/serverless-experiment#readme"
+}
