@@ -10,8 +10,9 @@ Inide of a .env file at the root of the folder the following variables are requi
 
 * `PORT_NUMBER` - A number between 0 - 65536 o nwhich the app will be hosted
 
-**the following are required for the database to run [Guide](https://support.google.com/firebase/answer/7015592)**
+**the following are required for the database to run**
 
+[Guide](https://support.google.com/firebase/answer/7015592) -
 <small>found under the heading **"Get config object for your web app"** at time of writing</small>
 
 * `FIREBASE_DATABASE_URL`
