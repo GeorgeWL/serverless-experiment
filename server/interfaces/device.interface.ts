@@ -12,7 +12,7 @@ export interface IRemoteDevice extends IDevice {
   remoteDeviceId: string;
 }
 
-export interface InputtedDevice {
+export interface IDeviceScan {
   deviceId: string;
   neighbours: IRemoteDevice[]
 }
