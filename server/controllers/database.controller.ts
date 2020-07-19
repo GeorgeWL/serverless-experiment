@@ -19,11 +19,12 @@ export const getDeviceById = async (deviceId: string) => {
   }
   try {
     const device = await db.DeviceStore.doc(deviceId).get()
-      .catch(err => {
+      .catch((err: any) => {
         console.error('error', err);
         throw new Error('Device Not Found');
       })
-    return { ...device, remoteDeviceId: deviceId };
+    const data = device.data()
+    return { ...data, remoteDeviceId: deviceId };
   } catch (error) {
     throw error;
   }
@@ -73,7 +74,7 @@ export const removeDeviceById = async (deviceId: string) => {
     throw new Error('Provide a deviceID');
   }
   try {
-    const res = await db.DeviceStore.doc(deviceId).delete().catch(err => {
+    const res = await db.DeviceStore.doc(deviceId).delete().catch((err: any) => {
       console.error('error', err);
       throw new Error('Device Not Found');
     });
@@ -87,5 +88,17 @@ export const getDevices = async (options?: IOptions) => {
   if (options && !options.minDate || options && !options.maxDate) {
     throw new Error('If provide options, minDate and/or maxDate is required');
   }
-  throw new Error('Unable to fetch devices');
+  const devices: any[] = [];
+  try {
+    const collection = await db.DeviceStore.orderBy('time', 'desc').get().catch((err: any) => {
+      console.error('error', err);
+      throw new Error('Unable to fetch devices');
+    });
+    collection.forEach(async (device: any) => {
+      devices.push({ remoteDeviceId: device.id, ...device.data() })
+    });
+    return devices
+  } catch (err) {
+    throw err;
+  }
 }

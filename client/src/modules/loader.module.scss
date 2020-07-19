@@ -1,0 +1,33 @@
+// create-react-app comes with post-css pre-installed, so don't need vendor prefixes
+
+.outer {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.dot {
+  border-radius: 100%;
+  animation: slideFade 0.8s ease;
+  background: hotpink;
+  &:nth-child(0) {
+    animation-delay: 0.2s;
+  }
+  &:nth-child(1) {
+    animation-delay: 0.4s;
+  }
+  &:nth-child(1) {
+    animation-delay: 0.8s;
+  }
+}
+
+@keyframes slideFade {
+  0% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+}

@@ -3,6 +3,12 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import Axios from 'axios';
+import { configure } from 'axios-hooks';
+const axios = Axios.create({
+  baseURL: 'http://localhost:4000/api'
+})
+configure({ axios })
 
 ReactDOM.render(
   <React.StrictMode>

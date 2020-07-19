@@ -1,7 +1,7 @@
 import IConfigFirebase from "../interfaces/config.interface";
 import admin from 'firebase-admin';
 export default class DatabaseService {
-  private deviceStore: FirebaseFirestore.CollectionReference<FirebaseFirestore.DocumentData>;
+  private deviceStore: any
 
   constructor(config: IConfigFirebase) {
     if (admin.apps.length <= 0) {

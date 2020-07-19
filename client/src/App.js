@@ -1,24 +1,36 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-
+import { BrowserRouter as Router, Switch, Route, NavLink } from 'react-router-dom';
+import styles from './app.module.scss';
+import DeviceTable from './modules/DeviceTable';
+import DeviceDetail from './modules/DeviceDetail';
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className={styles.app}>
+      <Router>
+        <header className={styles.header}>
+          <h1>
+            Measurement Aggregator
+        </h1>
+          <nav className={styles.nav}>
+            <ul>
+              <li>
+                <NavLink to='/devices' activeStyle={{ textDecoration: 'underline' }}>Device List</NavLink>
+              </li>
+            </ul>
+          </nav>
+        </header>
+        <main>
+          <Switch>
+            <Route path='/devices'>
+              <DeviceTable />
+            </Route>
+            <Route path='/device/:deviceId'>
+              <DeviceDetail />
+            </Route>
+            {/* assuming cause is no mention of GUI for adding device, no page needed for it and is done by some external peripheral */}
+          </Switch>
+        </main>
+      </Router>
     </div>
   );
 }
