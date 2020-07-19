@@ -1,8 +1,20 @@
 import { getDevices, getDeviceById, createDevice, updateDevice, removeDeviceById } from "./database.controller";
+
+import { v4 } from 'uuid'
+const uuid = v4()
+
 const getDaysAgoFromNow = (days) => {
   const date = new Date();
   date.setDate(date.getDate() - days)
   return new Date(date)
+}
+
+const device = {
+  interface: "BTLE",
+  level: 90,
+  neighbours: [],
+  time: new Date().toISOString(),
+  remoteDeviceId: uuid()
 }
 describe('Succesful Requests', () => {
   it('should get all devices, without options object', async () => {
@@ -12,11 +24,11 @@ describe('Succesful Requests', () => {
     expect(await getDevices({ minDate: getDaysAgoFromNow(4) })).toEqual();
     expect(await getDevices({ maxDate: getDaysAgoFromNow(1) })).toEqual();
   })
-  it('should create a device when provided with a valid id and data', () => {
-
+  it('should create a device when provided with a valid data', async () => {
+    expect(await createDevice(device)).toEqual({ accepted: true });
   })
-  it('should update a device when provided with a valid existing id and data', () => {
-
+  it('should update a device when provided with a valid data', async () => {
+    expect(await updateDevice({ ...device, level: 30 })).toEqual({ accepted: true });
   })
   it('should get a device when provided with a valid id', () => {
 
