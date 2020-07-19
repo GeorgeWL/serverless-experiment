@@ -6,4 +6,5 @@ export default interface IConfigFirebase {
   storageBucket: string;
   messagingSenderId: string;
   appId: string;
+  credential: object;
 };

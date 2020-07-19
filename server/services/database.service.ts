@@ -4,9 +4,9 @@ export default class DatabaseService {
   private deviceStore: FirebaseFirestore.CollectionReference<FirebaseFirestore.DocumentData>;
 
   constructor(config: IConfigFirebase) {
-    admin.initializeApp({
-      databaseURL: config.databaseURL,
-    })
+    if (admin.apps.length <= 0) {
+      admin.initializeApp({ credential: admin.credential.cert(config.credential) })
+    }
     const db = admin.firestore()
     this.deviceStore = db.collection('devices')
   }
