@@ -9,9 +9,8 @@ const serviceConfig: IConfigFirebase = JSON.parse(unparsedConfig);
 const db = new DatabaseService(serviceConfig);
 
 export interface IOptions {
-  minDate: Date;
-  maxDate: Date;
-  withRelations: boolean;
+  minDate?: Date;
+  maxDate?: Date;
 }
 
 export const getDeviceById = async (deviceId: string) => {
@@ -24,7 +23,7 @@ export const getDeviceById = async (deviceId: string) => {
         console.error('error', err);
         throw new Error('Device Not Found');
       })
-    return device;
+    return { ...device, remoteDeviceId: deviceId };
   } catch (error) {
     throw error;
   }
@@ -70,10 +69,18 @@ const createUpdate = async (data: IRemoteDevice) => {
 }
 
 export const removeDeviceById = async (deviceId: string) => {
-  if (!deviceId || typeof deviceId !== 'string') {
+  if (typeof deviceId !== 'string') {
     throw new Error('Provide a deviceID');
   }
-  throw new Error('Device Not Found, Unable to delete');
+  try {
+    const res = await db.DeviceStore.doc(deviceId).delete().catch(err => {
+      console.error('error', err);
+      throw new Error('Device Not Found');
+    });
+    return res
+  } catch (error) {
+    throw error;
+  }
 }
 
 export const getDevices = async (options?: IOptions) => {
