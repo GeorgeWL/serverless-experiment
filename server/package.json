@@ -4,12 +4,10 @@
   "description": "using serverless technologies alongside react",
   "main": "index.js",
   "scripts": {
-    "start": "npx ts-node ./index.ts",
+    "serve": "rm -rf build && npx tsc && node build",
     "dev": "npx nodemon ./index.ts",
-    "test": "npx jest",
-    "test:watch": "npx jest --watch",
-    "test:ui": "npx cypress open",
-    "test:ui-headless": "npx cypress run --headless"
+    "test": "npx jest --config jest.config.js",
+    "test:watch": "npx jest --watch --config jest.config.js"
   },
   "repository": {
     "type": "git",
@@ -30,10 +28,13 @@
     "@babel/preset-env": "^7.10.4",
     "@babel/preset-typescript": "^7.10.4",
     "@types/express": "^4.17.7",
+    "babel-jest": "^26.1.0",
     "dotenv": "^8.2.0",
     "typescript": "^3.9.6"
   },
   "dependencies": {
+    "@types/cors": "^2.8.6",
+    "@types/helmet": "0.0.47",
     "@types/node": "^14.0.23",
     "cors": "^2.8.5",
     "express": "^4.17.1",

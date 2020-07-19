@@ -11,9 +11,12 @@
     "react-scripts": "3.4.1"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "serve": "npm run build && npx serve -s build",
+    "dev": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "test:ui": "npx cypress open",
+    "test:ui-headless": "npx cypress run --headless",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
