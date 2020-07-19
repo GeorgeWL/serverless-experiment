@@ -1,6 +1,7 @@
 import DatabaseService from "../services/database.service";
 import IConfigFirebase from "../interfaces/config.interface";
 import * as dotenv from 'dotenv';
+import { IRemoteDevice } from "../interfaces/device.interface";
 
 dotenv.config();
 const unparsedConfig = process.env.FIREBASE_CONFIG as string;
@@ -30,24 +31,42 @@ export const getDeviceById = async (deviceId: string) => {
 }
 
 // technically in the JSON DB used, Create-Update are the same action, as it's evetnually consistent
-export const createDevice = async (deviceId: string, data: object) => {
-  if (!deviceId || typeof deviceId !== 'string') {
-    throw new Error('Provide a deviceID');
-  }
+export const createDevice = async (data: IRemoteDevice) => {
   if (!data) {
     throw new Error('No Data Provided');
   }
-  throw new Error('Device Not Found');
+  try {
+    await createUpdate(data)
+    return { accepted: true }
+  } catch (error) {
+    throw new Error('Unable to update device');
+  }
+}
+// to consider - nerge create/update, or instead check device exists before update?
+export const updateDevice = async (data: IRemoteDevice) => {
+  if (!data) {
+    throw new Error('No Data Provided');
+  }
+  try {
+    const device = getDeviceById(data.remoteDeviceId)
+    const deviceExists = !!device;
+    if (deviceExists) {
+      await createUpdate(data)
+      return { accepted: true }
+    } else {
+      throw new Error('Device not found');
+    }
+  } catch (error) {
+    throw new Error('Unable to update device');
+  }
 }
 
-export const updateDevice = async (deviceId: string, data: object) => {
-  if (!deviceId || typeof deviceId !== 'string') {
-    throw new Error('Provide a deviceID');
-  }
-  if (!data) {
-    throw new Error('No Data Provided');
-  }
-  throw new Error('Device Not Found');
+const createUpdate = async (data: IRemoteDevice) => {
+  const { remoteDeviceId } = data;
+  const newData = { ...data };
+  delete newData.remoteDeviceId;
+  const createUpdatedDevice = db.DeviceStore.doc(remoteDeviceId)
+  await createUpdatedDevice.set(newData)
 }
 
 export const removeDeviceById = async (deviceId: string) => {
