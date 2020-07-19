@@ -1,7 +1,6 @@
 import { getDevices, getDeviceById, createDevice, updateDevice, removeDeviceById } from "./database.controller";
 
 import { v4 } from 'uuid'
-const uuid = v4()
 
 const getDaysAgoFromNow = (days) => {
   const date = new Date();
@@ -14,7 +13,7 @@ const device = {
   level: 90,
   neighbours: [],
   time: new Date().toISOString(),
-  remoteDeviceId: uuid()
+  remoteDeviceId: v4()
 }
 describe('Succesful Requests', () => {
   it('should get all devices, without options object', async () => {
@@ -30,11 +29,11 @@ describe('Succesful Requests', () => {
   it('should update a device when provided with a valid data', async () => {
     expect(await updateDevice({ ...device, level: 30 })).toEqual({ accepted: true });
   })
-  it('should get a device when provided with a valid id', () => {
-
+  it('should get a device when provided with a valid id', async () => {
+    expect(await getDeviceById(device.remoteDeviceId)).toEqual(device);
   });
-  it('should remove device when provided with a valid id', () => {
-
+  it('should remove device when provided with a valid id', async () => {
+    expect(await removeDeviceById(device.remoteDeviceId)).toEqual({ deleted: true });
   })
 });
 describe('Failure Tests', () => {
