@@ -16,7 +16,7 @@ const DeviceDetail = ({ }) => {
           <ul>
             <strong>Neighbours: </strong>
             {data?.neighbours?.length > 0 && data.neighbours.map(neighbour => (
-              <li><Link to={`devices/`}></Link></li>
+              <li><Link to={`/device/${neighbour}`}>{neighbour}</Link></li>
             ))}
           </ul>
           <div>
