@@ -39,7 +39,7 @@
     "@types/helmet": "0.0.47",
     "@types/node": "^14.0.23",
     "cors": "^2.8.5",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "firebase-admin": "^9.0.0",
     "helmet": "^3.23.3"
   }
